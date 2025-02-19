@@ -6,7 +6,7 @@ function deleteCustomer(customerID) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("DELETE", "/delete-customer/", true);
+    xhttp.open("DELETE", "/delete-customer", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve

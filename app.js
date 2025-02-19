@@ -250,7 +250,7 @@ app.post('/add-delivery-form', function(req, res){
     })
 })
 
-app.delete('/delete-customer/', function(req,res,next){
+app.delete('/delete-customer', function(req,res,next){
     let data = req.body;
     let customerID = parseInt(data.customerID);
     let deleteInvoicesCustomerID = `DELETE FROM Invoices WHERE customerID = ?`;
@@ -281,7 +281,41 @@ app.delete('/delete-customer/', function(req,res,next){
               }
   })});
 
+app.put('/update-customer', function(req,res,next){
+    let data = req.body;
+  
+    let customerID = parseInt(data.customerID);
+    let address = data.address;
+    let phone = data.phone;
 
+    let queryUpdateCustomer = `UPDATE Customers SET address = ?, phone = ? WHERE customerID = ?`;
+    let selectCustomer = `SELECT * FROM Customers WHERE customerID = ?`;
+
+          // Run the 1st query
+          db.pool.query(queryUpdateCustomer, [address, phone, customerID], function(error, rows, fields) {
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(selectCustomer, [customerID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
 
 
 
