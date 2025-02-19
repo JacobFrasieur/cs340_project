@@ -249,6 +249,44 @@ app.post('/add-delivery-form', function(req, res){
         }
     })
 })
+
+app.delete('/delete-customer/', function(req,res,next){
+    let data = req.body;
+    let customerID = parseInt(data.customerID);
+    let deleteInvoicesCustomerID = `DELETE FROM Invoices WHERE customerID = ?`;
+    let deleteCustomers= `DELETE FROM Customers WHERE customerID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteInvoicesCustomerID, [customerID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteCustomers, [customerID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
+
+
+
+
+
+
+
 /*
     LISTENER
 */

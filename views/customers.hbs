@@ -1,6 +1,5 @@
 {{!-- Create a table --}}
-<table>
-
+<table id="customer-table">
     {{!-- Header section --}}
     <thead>
 
@@ -12,6 +11,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -20,19 +20,20 @@
 
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.customerID}}>
             <td>{{this.customerID}}</td>
             <td>{{this.name}}</td>
             <td>{{this.address}}</td>
             <td>{{this.phone}}</td>
+            <td><button onclick="deleteCustomer({{this.customerID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_customer.js"></script>
 
 <!-- /views/index.hbs -->
-<h2>Adding Data using an HTML form</h2>
-<p>To add a new person, please enter their information below nad click `Submit`!</p>
+<h2>Add Customer</h2>
 <form id="add-customer-form" method="POST" action="/add-customer-form">
     
     <label for="input-name">Name: </label>
