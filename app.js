@@ -41,28 +41,64 @@ app.get('/', function(req, res)
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
 
+app.get('/customers', function(req, res)
+    {  
+        let query1 = "SELECT * FROM Customers;";               // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            res.render('customers', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
+
+app.get('/invoices', function(req, res)
+    {  
+        let query2 = "SELECT * FROM Invoices;";               // Define our query
+
+        db.pool.query(query2, function(error, rows, fields){    // Execute the query
+
+            res.render('invoices', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
+
+app.get('/products', function(req, res)
+    {  
+        let query3 = "SELECT * FROM Products;";               // Define our query
+
+        db.pool.query(query3, function(error, rows, fields){    // Execute the query
+
+            res.render('products', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
+
+app.get('/invoicedetails', function(req, res)
+    {  
+        let query4 = "SELECT * FROM InvoiceDetails;";               // Define our query
+
+        db.pool.query(query4, function(error, rows, fields){    // Execute the query
+
+            res.render('invoicedetails', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
+
+app.get('/deliveries', function(req, res)
+    {  
+        let query5 = "SELECT * FROM Deliveries;";               // Define our query
+
+        db.pool.query(query5, function(error, rows, fields){    // Execute the query
+
+            res.render('deliveries', {data: rows});                  // Render the index.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });                                                         // received back from the query
 
 // app.js
 
-app.post('/add-person-form', function(req, res){
+app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Capture NULL values
-    let homeworld = parseInt(data['input-homeworld']);
-    if (isNaN(homeworld))
-    {
-        homeworld = 'NULL'
-    }
-
-    let age = parseInt(data['input-age']);
-    if (isNaN(age))
-    {
-        age = 'NULL'
-    }
-
     // Create the query and run it on the database
-    query1 = `INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES ('${data['input-fname']}', '${data['input-lname']}', ${homeworld}, ${age})`;
+    query1 = `INSERT INTO Customers (name, address, phone) VALUES ('${data['input-name']}', '${data['input-address']}', '${data['input-phone']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -77,11 +113,110 @@ app.post('/add-person-form', function(req, res){
         // presents it on the screen
         else
         {
-            res.redirect('/');
+            res.redirect('/customers');
         }
     })
 })
-    
+
+app.post('/add-invoice-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query2 = `INSERT INTO Invoices (customerID, invoiceDate, invoiceTotal) VALUES ('${data['input-customerID']}', '${data['input-invoiceDate']}', '${data['input-invoiceTotal']}')`;
+    db.pool.query(query2, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/invoices');
+        }
+    })
+})
+
+app.post('/add-product-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query3 = `INSERT INTO Products (productName, cost, inventory) VALUES ('${data['input-productName']}', '${data['input-cost']}', '${data['input-inventory']}')`;
+    db.pool.query(query3, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/products');
+        }
+    })
+})
+
+app.post('/add-invoicedetails-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query4 = `INSERT INTO InvoiceDetails (invoiceID, productID, quantity) VALUES ('${data['input-invoiceID']}', '${data['input-productID']}', '${data['input-quantity']}')`;
+    db.pool.query(query4, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/invoicedetails');
+        }
+    })
+})
+
+app.post('/add-delivery-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query5 = `INSERT INTO Deliveries (deliveryDue, customerID, invoiceID) VALUES ('${data['input-deliveryDue']}', '${data['input-customerID']}', '${data['input-invoiceID']}')`;
+    db.pool.query(query5, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/deliveries');
+        }
+    })
+})
 /*
     LISTENER
 */

@@ -1,0 +1,48 @@
+{{!-- Create a table --}}
+<table>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.invoiceID}}</td>
+            <td>{{this.customerID}}</td>
+            <td>{{this.invoiceDate}}</td>
+            <td>{{this.invoiceTotal}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- /views/index.hbs -->
+<h2>New Invoice</h2>
+<p>To add a new invoice, please enter their information below and click `Submit`!</p>
+<form id="add-invoice-form" method="POST" action="/add-invoice-form">
+    
+    <label for="input-customerID">Customer ID: </label>
+    <input type="number" name="input-customerID" id="input-customerID">
+
+    <label for="input-invoiceDate">Invoice Date: </label>
+    <input type="date" name="input-invoiceDate" id="input-invoiceDate">
+
+    <label for="input-invoiceTotal">Invoice Total: </label>
+    <input type="number" name="input-invoiceTotal" id="input-invoiceTotal">
+
+    <input type="submit">
+</form>

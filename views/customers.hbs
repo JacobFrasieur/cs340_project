@@ -21,12 +21,28 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
         <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.fname}}</td>
-            <td>{{this.lname}}</td>
-            <td>{{this.homeworld}}</td>
-            <td>{{this.age}}</td>
+            <td>{{this.customerID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phone}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+<!-- /views/index.hbs -->
+<h2>Adding Data using an HTML form</h2>
+<p>To add a new person, please enter their information below nad click `Submit`!</p>
+<form id="add-customer-form" method="POST" action="/add-customer-form">
+    
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name">
+
+    <label for="input-address">Address: </label>
+    <input type="text" name="input-address" id="input-address">
+
+    <label for="input-phone">Phone: </label>
+    <input type="number" name="input-phone" id="input-phone">
+
+    <input type="submit">
+</form>

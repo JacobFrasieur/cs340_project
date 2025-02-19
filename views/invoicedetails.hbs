@@ -1,0 +1,48 @@
+{{!-- Create a table --}}
+<table>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.detailsID}}</td>
+            <td>{{this.invoiceID}}</td>
+            <td>{{this.productID}}</td>
+            <td>{{this.quantity}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- /views/index.hbs -->
+<h2>New Invoice</h2>
+<p>To add a new invoice, please enter their information below and click `Submit`!</p>
+<form id="add-invoicedetails-form" method="POST" action="/add-invoicedetails-form">
+    
+    <label for="input-invoiceID">Invoice ID: </label>
+    <input type="number" name="input-invoiceID" id="input-invoiceID">
+
+    <label for="input-productID">Product ID: </label>
+    <input type="number" name="input-productID" id="input-productID">
+
+    <label for="input-quantity">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity">
+
+    <input type="submit">
+</form>
