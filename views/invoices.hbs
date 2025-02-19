@@ -1,3 +1,4 @@
+
 {{!-- Create a table --}}
 <table>
 
@@ -23,7 +24,7 @@
         <tr>
             <td>{{this.invoiceID}}</td>
             <td>{{this.customerID}}</td>
-            <td>{{this.invoiceDate}}</td>
+            <td>{{formatDate invoiceDate}}</td>
             <td>{{this.invoiceTotal}}</td>
         </tr>
         {{/each}}
@@ -36,7 +37,12 @@
 <form id="add-invoice-form" method="POST" action="/add-invoice-form">
     
     <label for="input-customerID">Customer ID: </label>
-    <input type="number" name="input-customerID" id="input-customerID">
+    <select name="input-customerID" id="input-customerID">
+        <option value="">Select an ID</option>
+        {{#each customers}}
+        <option value="{{this.customerID}}">{{this.customerID}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-invoiceDate">Invoice Date: </label>
     <input type="date" name="input-invoiceDate" id="input-invoiceDate">

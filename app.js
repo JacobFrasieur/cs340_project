@@ -5,7 +5,14 @@
 /*
     SETUP
 */
+const handlebars = require('handlebars');
 
+//Handles dates properly
+handlebars.registerHelper('formatDate', function(date) {
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'short', day: '2-digit'
+    });
+});
 
 
 
@@ -54,12 +61,19 @@ app.get('/customers', function(req, res)
 app.get('/invoices', function(req, res)
     {  
         let query2 = "SELECT * FROM Invoices;";               // Define our query
+        let query2_2 = "SELECT * FROM Customers;";
 
         db.pool.query(query2, function(error, rows, fields){    // Execute the query
+            let invoices = rows;
 
-            res.render('invoices', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+            db.pool.query(query2_2, (error, rows, fields) => {
+            
+                // Save the planets
+                let customers = rows;
+                return res.render('invoices', {data: invoices, customers: customers});
+            })
+        })                                                      
+    });                                                         
 
 app.get('/products', function(req, res)
     {  
@@ -77,7 +91,7 @@ app.get('/invoicedetails', function(req, res)
 
         db.pool.query(query4, function(error, rows, fields){    // Execute the query
 
-            res.render('invoicedetails', {data: rows});                  // Render the index.hbs file, and also send the renderer
+            res.render('InvoiceDetails', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
 
