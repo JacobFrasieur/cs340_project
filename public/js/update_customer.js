@@ -8,9 +8,9 @@ updateCustomerForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputCustomerID = document.getElementById("mySelect");
-    let inputAddress = document.getElementById("input-address");
-    let inputPhone = document.getElementById("input-phone");
+    let inputCustomerID = document.getElementById("update-name");
+    let inputAddress = document.getElementById("update-address");
+    let inputPhone = document.getElementById("update-phone");
 
     // Get the values from the form fields
     let customerIDValue = inputCustomerID.value;

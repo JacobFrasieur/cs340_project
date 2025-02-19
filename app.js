@@ -250,11 +250,11 @@ app.post('/add-delivery-form', function(req, res){
     })
 })
 
-app.delete('/delete-customer', function(req,res,next){
+app.delete('/delete-customer/', function(req,res,next){
     let data = req.body;
     let customerID = parseInt(data.customerID);
     let deleteInvoicesCustomerID = `DELETE FROM Invoices WHERE customerID = ?`;
-    let deleteCustomers= `DELETE FROM Customers WHERE customerID = ?`;
+    let deleteCustomer= `DELETE FROM Customers WHERE customerID = ?`;
   
   
           // Run the 1st query
@@ -269,7 +269,7 @@ app.delete('/delete-customer', function(req,res,next){
               else
               {
                   // Run the second query
-                  db.pool.query(deleteCustomers, [customerID], function(error, rows, fields) {
+                  db.pool.query(deleteCustomer, [customerID], function(error, rows, fields) {
   
                       if (error) {
                           console.log(error);
