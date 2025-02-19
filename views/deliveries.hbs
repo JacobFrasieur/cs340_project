@@ -22,7 +22,7 @@
         {{#each data}}
         <tr>
             <td>{{this.deliveryID}}</td>
-            <td>{{this.deliveryDue}}</td>
+            <td>{{formatDate this.deliveryDue}}</td>
             <td>{{this.customerID}}</td>
             <td>{{this.invoiceID}}</td>
         </tr>
@@ -39,7 +39,13 @@
     <input type="date" name="input-deliveryDue" id="input-deliveryDue">
 
     <label for="input-customerID">Customer ID: </label>
-    <input type="number" name="input-customerID" id="input-customerID">
+    <select name="input-customerID" id="input-customerID">
+        <option value="">Select an ID</option>
+        {{#each customers}}
+        <option value="{{this.customerID}}">{{this.customerID}}</option>
+        {{/each}}
+    </select>
+
 
     <label for="input-invoiceID">Inventory: </label>
     <input type="number" name="input-invoiceID" id="input-invoiceID">

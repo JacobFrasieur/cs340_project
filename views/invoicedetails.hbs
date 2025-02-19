@@ -36,10 +36,20 @@
 <form id="add-invoicedetails-form" method="POST" action="/add-invoicedetails-form">
     
     <label for="input-invoiceID">Invoice ID: </label>
-    <input type="number" name="input-invoiceID" id="input-invoiceID">
+    <select name="input-invoiceID" id="input-invoiceID">
+        <option value="">Select an ID</option>
+        {{#each invoices}}
+        <option value="{{this.invoiceID}}">{{this.invoiceID}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-productID">Product ID: </label>
-    <input type="number" name="input-productID" id="input-productID">
+    <select name="input-productID" id="input-productID">
+        <option value="">Select an ID</option>
+        {{#each products}}
+        <option value="{{this.productID}}">{{this.productID}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-quantity">Quantity: </label>
     <input type="number" name="input-quantity" id="input-quantity">

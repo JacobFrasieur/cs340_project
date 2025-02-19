@@ -68,7 +68,7 @@ app.get('/invoices', function(req, res)
 
             db.pool.query(query2_2, (error, rows, fields) => {
             
-                // Save the planets
+
                 let customers = rows;
                 return res.render('invoices', {data: invoices, customers: customers});
             })
@@ -77,33 +77,51 @@ app.get('/invoices', function(req, res)
 
 app.get('/products', function(req, res)
     {  
-        let query3 = "SELECT * FROM Products;";               // Define our query
+        let query3 = "SELECT * FROM Products;";               
 
-        db.pool.query(query3, function(error, rows, fields){    // Execute the query
+        db.pool.query(query3, function(error, rows, fields){    
 
-            res.render('products', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+            res.render('products', {data: rows});                  
+        })                                                      
+    });                                                         
 
 app.get('/invoicedetails', function(req, res)
     {  
-        let query4 = "SELECT * FROM InvoiceDetails;";               // Define our query
+        let query4 = "SELECT * FROM InvoiceDetails;";      
+        let query4_2 = "SELECT * FROM Invoices"
+        let query4_3 = "SELECT * FROM Products"
+        
+        db.pool.query(query4, function(error, rows, fields){    
+            let invoicedetails = rows;
 
-        db.pool.query(query4, function(error, rows, fields){    // Execute the query
+            db.pool.query(query4_2, (error, rows, fields) => {
+                let invoices = rows;   
+                
+                db.pool.query(query4_3, (error, rows, fields) => {
+                    let products = rows;
+                
+                    return res.render('invoicedetails', {data: invoicedetails, invoices: invoices, products: products});    
+                });
+            });                
+        });                                                      
+    });                                                         
 
-            res.render('InvoiceDetails', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
 
 app.get('/deliveries', function(req, res)
     {  
-        let query5 = "SELECT * FROM Deliveries;";               // Define our query
+        let query5 = "SELECT * FROM Deliveries;";               
+        let query5_2 = "SELECT * FROM Customers;";
 
-        db.pool.query(query5, function(error, rows, fields){    // Execute the query
+        db.pool.query(query5, function(error, rows, fields){    
+            let deliveries = rows;
 
-            res.render('deliveries', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+            db.pool.query(query5_2, (error, rows, fields) => {
+            
+                let customers = rows;
+                return res.render('deliveries', {data: deliveries, customers: customers});
+            })              
+        })                                                      
+    });                                                         
 
 // app.js
 
