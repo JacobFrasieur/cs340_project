@@ -281,6 +281,24 @@ app.delete('/delete-customer/', function(req,res,next){
               }
   })});
 
+
+app.delete('/delete-invoicedetail/', function(req,res,next){
+    let data = req.body;
+    let detailsID = parseInt(data.detailsID);
+    let deleteInvoiceDetailsCustomerID = `DELETE FROM InvoiceDetails WHERE detailsID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteInvoiceDetailsCustomerID, [detailsID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+
+  })});
+
 app.put('/update-customer', function(req,res,next){
     let data = req.body;
   

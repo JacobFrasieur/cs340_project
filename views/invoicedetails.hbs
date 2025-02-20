@@ -8,13 +8,8 @@
         <a href="/products">Products</a>
 </nav>
 <h2>Invoice Details</h2>
-<table>
-
-    {{!-- Header section --}}
+<table id="invoicedetails-table">
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
             {{#each data.[0]}}
             <th>
@@ -34,10 +29,12 @@
             <td>{{this.invoiceID}}</td>
             <td>{{this.productID}}</td>
             <td>{{this.quantity}}</td>
+            <td><button onclick="deleteInvoiceDetails({{this.detailsID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_invoicedetails.js"></script>
 
 <!-- /views/index.hbs -->
 <h2>Add Invoice Details</h2>
