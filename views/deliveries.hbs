@@ -44,10 +44,10 @@
 <form id="add-delivery-form" method="POST" action="/add-delivery-form">
     
     <label for="input-deliveryDue">Delivery Due: </label>
-    <input type="date" name="input-deliveryDue" id="input-deliveryDue">
+    <input type="date" name="input-deliveryDue" id="input-deliveryDue" required>
 
     <label for="input-customerID">Customer ID: </label>
-    <select name="input-customerID" id="input-customerID">
+    <select name="input-customerID" id="input-customerID" required>
         <option value="">Select an ID</option>
         {{#each customers}}
         <option value="{{this.customerID}}">{{this.customerID}}</option>
@@ -55,8 +55,8 @@
     </select>
 
 
-    <label for="input-invoiceID">Inventory: </label>
-    <input type="number" name="input-invoiceID" id="input-invoiceID">
+    <label for="input-invoiceID">Invoice ID: </label>
+    <input type="number" name="input-invoiceID" id="input-invoiceID" required>
 
     <input type="submit">
 </form>

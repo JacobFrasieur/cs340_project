@@ -23,7 +23,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 8753;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 8733;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
 var db = require('./database/db-connector')
@@ -128,7 +128,8 @@ app.get('/deliveries', function(req, res)
 app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
+    data['input-address'] = data['input-address'] ? data['input-address'] : null;
+    data['input-phone'] = data['input-phone'] ? data['input-phone'] : null;
     // Create the query and run it on the database
     query1 = `INSERT INTO Customers (name, address, phone) VALUES ('${data['input-name']}', '${data['input-address']}', '${data['input-phone']}')`;
     db.pool.query(query1, function(error, rows, fields){
@@ -153,7 +154,7 @@ app.post('/add-customer-form', function(req, res){
 app.post('/add-invoice-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
+    data['input-invoiceTotal'] = data['input-invoiceTotal'] ? data['input-invoiceTotal'] : null;
     // Create the query and run it on the database
     query2 = `INSERT INTO Invoices (customerID, invoiceDate, invoiceTotal) VALUES ('${data['input-customerID']}', '${data['input-invoiceDate']}', '${data['input-invoiceTotal']}')`;
     db.pool.query(query2, function(error, rows, fields){
@@ -228,7 +229,6 @@ app.post('/add-invoicedetails-form', function(req, res){
 app.post('/add-delivery-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
     // Create the query and run it on the database
     query5 = `INSERT INTO Deliveries (deliveryDue, customerID, invoiceID) VALUES ('${data['input-deliveryDue']}', '${data['input-customerID']}', '${data['input-invoiceID']}')`;
     db.pool.query(query5, function(error, rows, fields){

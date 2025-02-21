@@ -6,15 +6,15 @@ SET AUTOCOMMIT =0;
 CREATE OR REPLACE TABLE Customers (
     customerID int AUTO_INCREMENT PRIMARY KEY,
     name varchar(30) NOT NULL,
-    address varchar(50) NOT NULL,
-    phone char(10) NOT NULL
+    address varchar(50) NULL,
+    phone char(10) NULL
 );
 
 CREATE OR REPLACE TABLE Invoices (
     invoiceID int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     customerID int NOT NULL,
     invoiceDate date NOT NULL,
-    invoiceTotal decimal(10,2) NOT NULL,
+    invoiceTotal decimal(10,2) NULL,
     FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE
     
 );
@@ -22,7 +22,7 @@ CREATE OR REPLACE TABLE Invoices (
 CREATE OR REPLACE TABLE Products (
     productID int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     productName varchar(30) NOT NULL,
-    cost decimal(10,2) NOT NULL,
+    cost decimal(10,2) NULL,
     inventory int NOT NULL default 0
 );
 
