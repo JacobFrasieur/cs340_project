@@ -23,7 +23,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 8733;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 8785;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
 var db = require('./database/db-connector')
@@ -279,7 +279,7 @@ app.delete('/delete-customer/', function(req,res,next){
                       }
                   })
               }
-  })});
+})});
 
 
 app.delete('/delete-invoicedetail/', function(req,res,next){
@@ -297,7 +297,38 @@ app.delete('/delete-invoicedetail/', function(req,res,next){
               res.sendStatus(400);
               }
 
-  })});
+})});
+
+app.delete('/delete-product/', function(req,res,next){
+let data = req.body;
+let productID = parseInt(data.productID);
+let deleteInvoicesDetailsProductID = `DELETE FROM InvoiceDetails WHERE productID = ?`;
+let deleteProduct= `DELETE FROM Products WHERE productID = ?`;
+
+
+        // Run the 1st query
+        db.pool.query(deleteInvoicesDetailsProductID, [productID], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+                // Run the second query
+                db.pool.query(deleteProduct, [productID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.sendStatus(204);
+                    }
+                })
+            }
+})});
 
 app.put('/update-customer', function(req,res,next){
     let data = req.body;

@@ -16,7 +16,9 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
+        
     </thead>
 
     {{!-- Body section --}}
@@ -24,7 +26,7 @@
 
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data}}
-        <tr>
+        <tr data-value={{this.detailsID}}>
             <td>{{this.detailsID}}</td>
             <td>{{this.invoiceID}}</td>
             <td>{{this.productID}}</td>
