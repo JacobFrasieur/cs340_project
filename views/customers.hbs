@@ -49,9 +49,9 @@
     <input type="submit">
 </form>
 <h2>Update Customer</h2>
-<form id="update-customer-name">
-    <label for="update-customer-name">Name: </label>
-    <select name="update-customer-name" id="update-name">
+<form id="update-customer-form">
+    <label for="update-customer-form">Name: </label>
+    <select name="update-customer-form" id="update-name">
         <option value="">Select a Customer</option>
         {{#each data}}
         <option value="{{this.customerID}}">{{this.name}}</option>
