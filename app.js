@@ -129,7 +129,7 @@ app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
     data['input-address'] = data['input-address'] ? data['input-address'] : null;
-    data['input-phone'] = data['input-phone'] ? data['input-phone'] : null;
+    data['input-phone'] = data['input-phone'] ? data['input-phone'].replace(/-/g, '') : null;
     // Create the query and run it on the database
     query1 = `INSERT INTO Customers (name, address, phone) VALUES ('${data['input-name']}', '${data['input-address']}', '${data['input-phone']}')`;
     db.pool.query(query1, function(error, rows, fields){

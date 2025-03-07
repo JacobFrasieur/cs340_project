@@ -25,12 +25,22 @@
             <td>{{this.customerID}}</td>
             <td>{{this.name}}</td>
             <td>{{this.address}}</td>
-            <td>{{this.phone}}</td>
+            <td class="phone-number">{{this.phone}}</td>
             <td><button onclick="deleteCustomer({{this.customerID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".phone-number").forEach(function (td) {
+        let phone = td.textContent.replace(/\D/g, ""); // Remove non-numeric characters
+        if (phone.length === 10) {
+            td.textContent = phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+        }
+    });
+});
+</script>
 <script src="./js/delete_customer.js"></script>
 
 <!-- /views/index.hbs -->
@@ -44,7 +54,7 @@
     <input type="text" name="input-address" id="input-address">
 
     <label for="input-phone">Phone: </label>
-    <input type="tel" name="input-phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+    <input type="tel" name="input-phone" id="input-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="111-111-1111">
 
     <input type="submit">
 </form>
@@ -62,7 +72,7 @@
     <input type="text" name="update-address" id="update-address">
 
     <label for="update-phone">Phone: </label>
-    <input type="tel" name="update-phone" id="update-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+    <input type="tel" name="update-phone" id="update-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="111-111-1111">
 
     <input type="submit">
 </form>
