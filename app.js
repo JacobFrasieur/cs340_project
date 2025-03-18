@@ -379,7 +379,43 @@ app.put('/update-customer', function(req,res,next){
               }
   })});
 
+//Setup for updating an invoicedetail - Inspired by the starter app
+app.put('/update-invoicedetail', function(req,res,next){
+    let data = req.body;
+  
+    let detailsID = parseInt(data.detailsID);
+    let invoiceID =  parseInt(data.invoiceID);
+    let productID = parseInt(data.productID);
+    let quantity = data.quantity;
 
+    let queryInvoiceDetails = `UPDATE InvoiceDetails SET invoiceID = ?, productID = ?, quantity = ? WHERE detailsID = ?`;
+    let selectInvoiceDetail = `SELECT * FROM InvoiceDetails WHERE detailsID = ?`;
+
+          // Run the 1st query
+          db.pool.query(queryUpdateInvoiceDetails, [invoiceID, productID, quantity], function(error, rows, fields) {
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+              else
+              {
+                  // Run the second query
+                  db.pool.query(selectInvoiceDetail, [detailsID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.send(rows);
+                      }
+                  })
+              }
+  })});
 
 
 
