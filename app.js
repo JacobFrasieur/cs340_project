@@ -22,7 +22,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 8793;                 // Set a port number
+PORT        = 8785;                 // Set a port number
 
 // Database
 var db = require('./database/db-connector')
