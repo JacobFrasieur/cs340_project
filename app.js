@@ -380,7 +380,7 @@ app.put('/update-customer', function(req,res,next){
   })});
 
 //Setup for updating an invoicedetail - Inspired by the starter app
-app.put('/update-invoicedetail', function(req,res,next){
+app.put('/update-invoicedetails', function(req,res,next){
     let data = req.body;
   
     let detailsID = parseInt(data.detailsID);
@@ -388,7 +388,7 @@ app.put('/update-invoicedetail', function(req,res,next){
     let productID = parseInt(data.productID);
     let quantity = data.quantity;
 
-    let queryInvoiceDetails = `UPDATE InvoiceDetails SET invoiceID = ?, productID = ?, quantity = ? WHERE detailsID = ?`;
+    let queryUpdateInvoiceDetails = `UPDATE InvoiceDetails SET invoiceID = ?, productID = ?, quantity = ? WHERE detailsID = ?`;
     let selectInvoiceDetail = `SELECT * FROM InvoiceDetails WHERE detailsID = ?`;
 
           // Run the 1st query
