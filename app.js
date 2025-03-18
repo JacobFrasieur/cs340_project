@@ -22,7 +22,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 8785;                 // Set a port number
+PORT        = 8793;                 // Set a port number
 
 // Database
 var db = require('./database/db-connector')
@@ -392,7 +392,7 @@ app.put('/update-invoicedetails', function(req,res,next){
     let selectInvoiceDetail = `SELECT * FROM InvoiceDetails WHERE detailsID = ?`;
 
           // Run the 1st query
-          db.pool.query(queryUpdateInvoiceDetails, [invoiceID, productID, quantity], function(error, rows, fields) {
+          db.pool.query(queryUpdateInvoiceDetails, [invoiceID, productID, quantity, detailsID], function(error, rows, fields) {
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -411,6 +411,7 @@ app.put('/update-invoicedetails', function(req,res,next){
                           console.log(error);
                           res.sendStatus(400);
                       } else {
+                          console.log(rows);
                           res.send(rows);
                       }
                   })

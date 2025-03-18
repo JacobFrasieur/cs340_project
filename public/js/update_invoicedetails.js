@@ -17,9 +17,9 @@ updateCustomerForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputDetailsID = document.getElementById("update-detailsid");
-    let inputInvoiceID = document.getElementById("update-invoiceid");
-    let inputProductID = document.getElementById("update-productid");
+    let inputDetailsID = document.getElementById("update-detailsID");
+    let inputInvoiceID = document.getElementById("update-invoiceID");
+    let inputProductID = document.getElementById("update-productID");
     let inputQuantity = document.getElementById("update-quantity");
 
     // Get the values from the form fields
@@ -75,13 +75,13 @@ function updateRow(data, detailsID){
         let updateRowIndex = table.getElementsByTagName("tr")[i];
 
         // Get td elements for invoiceid, productid, quantity
-        let invoiceTd = updateRowIndex.getElementsByTagName("td")[2];
-        let productTd = updateRowIndex.getElementsByTagName("td")[3];
-        let quantityTd = updateRowIndex.getElementsByTagName("td")[4];
+        let invoiceTd = updateRowIndex.getElementsByTagName("td")[1];
+        let productTd = updateRowIndex.getElementsByTagName("td")[2];
+        let quantityTd = updateRowIndex.getElementsByTagName("td")[3];
 
         // Reassign values to updated data
-        invoiceTd.innerHTML = parsedData[0].invoice;
-        productTd.innerHTML = parsedData[0].product;
+        invoiceTd.innerHTML = parsedData[0].invoiceID;
+        productTd.innerHTML = parsedData[0].productID;
         quantityTd.innerHTML = parsedData[0].quantity;
         
         // Highlight updated row
