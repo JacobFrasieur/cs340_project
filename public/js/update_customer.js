@@ -78,6 +78,14 @@ function updateRow(data, customerID){
         // Reassign values to updated data
         addressTd.innerHTML = parsedData[0].address;
         phoneTd.innerHTML = parsedData[0].phone;
+
+        // Highlight updated row
+        updateRowIndex.style.backgroundColor = "#519460"; // Light green
+
+        // Remove highlight after 2.5 seconds
+        setTimeout(() => {
+            updateRowIndex.style.backgroundColor = "";
+        }, 2500);
        }
     }
 }

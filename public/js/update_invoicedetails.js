@@ -83,6 +83,14 @@ function updateRow(data, detailsID){
         invoiceTd.innerHTML = parsedData[0].invoice;
         productTd.innerHTML = parsedData[0].product;
         quantityTd.innerHTML = parsedData[0].quantity;
+        
+        // Highlight updated row
+        updateRowIndex.style.backgroundColor = "#519460"; // Light green
+
+        // Remove highlight after 2.5 seconds
+        setTimeout(() => {
+            updateRowIndex.style.backgroundColor = "";
+        }, 2500);
        }
     }
 }
