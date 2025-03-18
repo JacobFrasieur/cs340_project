@@ -1,5 +1,5 @@
 /*
-Citation for following: app.js
+Citation for following: app.js - heavily inspired with the exception of DB queries & tables used
 Date: 3/17/2025
 Adapted From: NodeJS Starter App
 Link: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/f805913e77a460e16291bb69ce35740630fd0fc9
@@ -107,25 +107,30 @@ app.get('/invoicedetails', function(req, res)
             });                
         });                                                      
     });                                                         
+ 
+//Setup for GET deliveries - Inspired by the starter app
+app.get('/deliveries', function(req, res) {  
+    let query5 = "SELECT * FROM Deliveries;";               
+    let query5_2 = "SELECT * FROM Customers;";
+    let query5_3 = "SELECT * FROM Invoices;";
 
-//Setup for GET deliveries
-app.get('/deliveries', function(req, res)
-    {  
-        let query5 = "SELECT * FROM Deliveries;";               
-        let query5_2 = "SELECT * FROM Customers;";
+    db.pool.query(query5, function(error, rows, fields) {    
+        let deliveries = rows;
 
-        db.pool.query(query5, function(error, rows, fields){    
-            let deliveries = rows;
+        db.pool.query(query5_2, (error, rows, fields) => {
+            let customers = rows;
 
-            db.pool.query(query5_2, (error, rows, fields) => {
-            
-                let customers = rows;
-                return res.render('deliveries', {data: deliveries, customers: customers});
-            })              
-        })                                                      
-    });                                                         
+            db.pool.query(query5_3, (error, rows, fields) => {  
+                let invoices = rows; 
+                
+                return res.render('deliveries', {data: deliveries, customers: customers, invoices: invoices});
+            });
+        }); 
+    });                                                     
+});
+                                                        
 
-//Setup for adding a new customer
+//Setup for adding a new customer - Inspired by the starter app
 app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -152,7 +157,7 @@ app.post('/add-customer-form', function(req, res){
     })
 })
 
-//Setup for adding a new invoice
+//Setup for adding a new invoice - Inspired by the starter app
 app.post('/add-invoice-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -183,7 +188,7 @@ app.post('/add-product-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Create the query and run it on the database
+    // Create the query and run it on the database - Inspired by the starter app
     query3 = `INSERT INTO Products (productName, cost, inventory) VALUES ('${data['input-productName']}', '${data['input-cost']}', '${data['input-inventory']}')`;
     db.pool.query(query3, function(error, rows, fields){
 
@@ -209,7 +214,7 @@ app.post('/add-invoicedetails-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    // Create the query and run it on the database
+    // Create the query and run it on the database - Inspired by the starter app
     query4 = `INSERT INTO InvoiceDetails (invoiceID, productID, quantity) VALUES ('${data['input-invoiceID']}', '${data['input-productID']}', '${data['input-quantity']}')`;
     db.pool.query(query4, function(error, rows, fields){
 
@@ -230,7 +235,7 @@ app.post('/add-invoicedetails-form', function(req, res){
     })
 })
 
-//Setup for adding a new delivery
+//Setup for adding a new delivery - Inspired by the starter app
 app.post('/add-delivery-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -255,7 +260,7 @@ app.post('/add-delivery-form', function(req, res){
     })
 })
 
-//Setup for deleting a customer
+//Setup for deleting a customer - Inspired by the starter app
 app.delete('/delete-customer/', function(req,res,next){
     let data = req.body;
     let customerID = parseInt(data.customerID);
@@ -287,7 +292,7 @@ app.delete('/delete-customer/', function(req,res,next){
               }
 })});
 
-//Setup for deleting an invoiceDetail and associated spots in other tables
+//Setup for deleting an invoiceDetail and associated spots in other tables - Inspired by the starter app
 app.delete('/delete-invoicedetail/', function(req,res,next){
     let data = req.body;
     let detailsID = parseInt(data.detailsID);
@@ -305,7 +310,7 @@ app.delete('/delete-invoicedetail/', function(req,res,next){
 
 })});
 
-//Setup for deleting a product
+//Setup for deleting a product - Inspired by the starter app
 app.delete('/delete-product/', function(req,res,next){
 let data = req.body;
 let productID = parseInt(data.productID);
@@ -337,7 +342,7 @@ let deleteProduct= `DELETE FROM Products WHERE productID = ?`;
             }
 })});
 
-//Setup for updating a customer
+//Setup for updating a customer - Inspired by the starter app
 app.put('/update-customer', function(req,res,next){
     let data = req.body;
   

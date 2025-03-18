@@ -1,10 +1,11 @@
 /*
-Citation for following: delete_product.js
+Citation for following: delete_product.js - all content heavily inspired
 Date: 3/17/2025
 Adapted From: NodeJS Starter App
 Link: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/f805913e77a460e16291bb69ce35740630fd0fc9
 */
 
+//This function was heavily inspired from the starter app
 function deleteProduct(productID) {
     // Put our data we want to send in a javascript object
     let data = {
@@ -32,7 +33,7 @@ function deleteProduct(productID) {
     xhttp.send(JSON.stringify(data));
 }
 
-
+//This function was heavily inspired from the starter app
 function deleteRow(productID){
 
     let table = document.getElementById("product-table");
