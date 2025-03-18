@@ -1,4 +1,9 @@
-{{!-- Create a table --}}
+{{!--
+Citation for following: products handlebars
+Date: 3/17/2025
+Adapted From: NodeJS Starter App
+Link: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/f805913e77a460e16291bb69ce35740630fd0fc9
+--}}
 <nav>
         <a href="/">Home</a>
         <a href="/customers">Customers</a>
@@ -28,7 +33,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the productID, productName, cost, inventory --}}
         {{#each data}}
         <tr data-value={{this.productID}}>
             <td>{{this.productID}}</td>
@@ -41,7 +46,8 @@
     </tbody>
 </table>
 <script src="./js/delete_product.js"></script>
-<!-- /views/index.hbs -->
+
+{{!--Creates add product button --}}
 <h2>Add Product</h2>
 <form id="add-customer-form" method="POST" action="/add-product-form">
     

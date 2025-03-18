@@ -1,9 +1,8 @@
-// App.js
-
-
-
 /*
-    SETUP
+Citation for following: app.js
+Date: 3/17/2025
+Adapted From: NodeJS Starter App
+Link: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/f805913e77a460e16291bb69ce35740630fd0fc9
 */
 const handlebars = require('handlebars');
 
@@ -23,7 +22,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 8785;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 8785;                 // Set a port number
 
 // Database
 var db = require('./database/db-connector')
@@ -40,24 +39,25 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 app.get('/', function(req, res)
     {  
-        let query1 = "SELECT * FROM bsg_people;";               // Define our query
+        let query1 = "SELECT * FROM Customers;";               // Define our query
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
             res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
-
+//Setup for GET customers
 app.get('/customers', function(req, res)
     {  
         let query1 = "SELECT * FROM Customers;";               // Define our query
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
-            res.render('customers', {data: rows});                  // Render the index.hbs file, and also send the renderer
+            res.render('customers', {data: rows});                  // Render the customers.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
 
+//Setup for GET invoices
 app.get('/invoices', function(req, res)
     {  
         let query2 = "SELECT * FROM Invoices;";               // Define our query
@@ -75,6 +75,7 @@ app.get('/invoices', function(req, res)
         })                                                      
     });                                                         
 
+//Setup for GET products
 app.get('/products', function(req, res)
     {  
         let query3 = "SELECT * FROM Products;";               
@@ -85,6 +86,7 @@ app.get('/products', function(req, res)
         })                                                      
     });                                                         
 
+//Setup for GET invoiceDetails (join table)
 app.get('/invoicedetails', function(req, res)
     {  
         let query4 = "SELECT * FROM InvoiceDetails;";      
@@ -106,7 +108,7 @@ app.get('/invoicedetails', function(req, res)
         });                                                      
     });                                                         
 
-
+//Setup for GET deliveries
 app.get('/deliveries', function(req, res)
     {  
         let query5 = "SELECT * FROM Deliveries;";               
@@ -123,8 +125,7 @@ app.get('/deliveries', function(req, res)
         })                                                      
     });                                                         
 
-// app.js
-
+//Setup for adding a new customer
 app.post('/add-customer-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -151,6 +152,7 @@ app.post('/add-customer-form', function(req, res){
     })
 })
 
+//Setup for adding a new invoice
 app.post('/add-invoice-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -176,6 +178,7 @@ app.post('/add-invoice-form', function(req, res){
     })
 })
 
+//Setup for adding a new product
 app.post('/add-product-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -201,6 +204,7 @@ app.post('/add-product-form', function(req, res){
     })
 })
 
+//Setup for adding a new invoicedetails
 app.post('/add-invoicedetails-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -226,6 +230,7 @@ app.post('/add-invoicedetails-form', function(req, res){
     })
 })
 
+//Setup for adding a new delivery
 app.post('/add-delivery-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -250,6 +255,7 @@ app.post('/add-delivery-form', function(req, res){
     })
 })
 
+//Setup for deleting a customer
 app.delete('/delete-customer/', function(req,res,next){
     let data = req.body;
     let customerID = parseInt(data.customerID);
@@ -281,7 +287,7 @@ app.delete('/delete-customer/', function(req,res,next){
               }
 })});
 
-
+//Setup for deleting an invoiceDetail and associated spots in other tables
 app.delete('/delete-invoicedetail/', function(req,res,next){
     let data = req.body;
     let detailsID = parseInt(data.detailsID);
@@ -299,6 +305,7 @@ app.delete('/delete-invoicedetail/', function(req,res,next){
 
 })});
 
+//Setup for deleting a product
 app.delete('/delete-product/', function(req,res,next){
 let data = req.body;
 let productID = parseInt(data.productID);
@@ -330,6 +337,7 @@ let deleteProduct= `DELETE FROM Products WHERE productID = ?`;
             }
 })});
 
+//Setup for updating a customer
 app.put('/update-customer', function(req,res,next){
     let data = req.body;
   

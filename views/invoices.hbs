@@ -1,3 +1,10 @@
+{{!--
+Citation for following: invoice handlebars
+Date: 3/17/2025
+Adapted From: NodeJS Starter App
+Link: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/f805913e77a460e16291bb69ce35740630fd0fc9
+--}}
+
 {{!-- Create a table --}}
 <nav>
         <a href="/">Home</a>
@@ -27,7 +34,7 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!-- For each row, print the invoiceID, customerID, invoiceDate, and invoiceTotal--}}
         {{#each data}}
         <tr>
             <td>{{this.invoiceID}}</td>
@@ -39,10 +46,11 @@
     </tbody>
 </table>
 
-<!-- /views/index.hbs -->
+{{!--Creates add invoice button --}}
 <h2>Add Invoice</h2>
 <form id="add-invoice-form" method="POST" action="/add-invoice-form">
     
+    {{!-- Dynamically filled dropdown menu --}}
     <label for="input-customerID">Customer ID: </label>
     <select name="input-customerID" id="input-customerID" required>
         <option value="">Select an ID</option>
